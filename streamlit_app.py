@@ -23,7 +23,8 @@ menu_selection = st.sidebar.selectbox(
 
 # 選択に基づいてメイン画面の内容を変更
 if menu_selection == "ホーム":
-    st.write("ホームページへようこそ！")
+    st.write("### ホームページへようこそ！")
+    st.write("### 左上の>ボタンをクリックして選択")
 elif menu_selection == "MelonチャートTOP100 月間推移":
 
     file_path = 'melon_2024_3_top100.json'
