@@ -83,7 +83,7 @@ elif menu_selection == "MelonチャートTOP100 月間推移":
     plot_points_count = len(song_data_sorted)
     font_size = max(15 - (plot_points_count // 8), 6)  # プロット点が多いほどフォントサイズを小さくする
     marker_size = max(20 - (plot_points_count // 20), 2)  # プロット点が多いほどマーカーサイズを小さくする
-    font_path = '/Users/shimamurayuudai/Documents/Documents/pythondata/lec_streamlit/code_file/analysis_jp_wage/ipaexg.ttf'
+    font_path = 'ipaexg.ttf'
     font_prop = FontProperties(fname=font_path)
 
     # 各色ごとにデータを分けてプロットするためのリストを準備
