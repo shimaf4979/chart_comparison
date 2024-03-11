@@ -48,7 +48,6 @@ def home(df):
     selected_song = st.selectbox('曲を選択してください', artist_songs['song'].unique())
     song_data = artist_songs[artist_songs['song'] == selected_song]   
     song_data_sorted = song_data.sort_values(by=['year', 'month'])   
-    plt.style.use('seaborn-darkgrid')
     plt.figure(figsize=(10, 6))
     
     #サイズ、フォントの指定
@@ -128,7 +127,7 @@ def home(df):
         for rank in rank_list:
             st.write(f"- {rank}")
     # 2つ目のカラムに画像を配置
-    col10.image(processed_url, caption=f'{selected_song}', width=400)    
+    col10.image(processed_url, caption=f'{selected_song}', width=300)    
        
     with st.expander("他の作品を見る"):
         # 選択されたアーティストの他の曲を抽出（選択された曲を除外）
@@ -175,7 +174,6 @@ def home_next(df):
     selected_song = st.session_state['selected_song']
     song_data = artist_songs[artist_songs['song'] == selected_song]   
     song_data_sorted = song_data.sort_values(by=['year', 'month'])
-    plt.style.use('seaborn-darkgrid')
     plt.figure(figsize=(10, 6))
     
     #サイズ、フォントの指定
@@ -255,7 +253,7 @@ def home_next(df):
     with col1.expander("順位推移を見る"):
         for rank in rank_list:
             st.write(f"- {rank}")
-    col10.image(processed_url, caption=f'{selected_song}', width=400)
+    col10.image(processed_url, caption=f'{selected_song}', width=300)
     #ここでグラフを表示
     st.pyplot(plt)
 
@@ -306,7 +304,6 @@ def artist_next(df):
     selected_song = st.session_state['selected_song']
     song_data = artist_songs[artist_songs['song'] == selected_song]   
     song_data_sorted = song_data.sort_values(by=['year', 'month'])
-    plt.style.use('seaborn-darkgrid')
     plt.figure(figsize=(10, 6))
     
     #サイズ、フォントの指定

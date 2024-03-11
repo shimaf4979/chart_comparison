@@ -8,6 +8,7 @@ melon_top100はscrapy-seleniumを用いたスクレイピング用のソース�
 ソースコードはmelon_chart100.pyです。
 settings.pyのdriverパスを自分のものに変更してください。
 仮装環境は最新のpythonだとscrapyが使えるかはわかりません。
+要望があれば載せます。軽緑化のため本ファイルには載せてません。
 
 # streamlitの起動方法
 requirements.txtはサーバー起動時に勝手にインストールしてくれるモジュールのバージョンを明記しています。
