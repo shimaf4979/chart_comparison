@@ -1,1 +1,17 @@
-# chart_comparison
+# chart_comparsion
+melonチャートの月間ランキングをscrapy-seleniumを用いてjsonファイルに出力し、,matplotlibとnumpyで成形、streamlitにサーバーと出力を任せるといったwebアプリです。
+streamlit自体には動的なサービスや色など変えれないため、一部markdown形式でそのままHTML/CSSを貼り付けています。
+streamlitの更新で使えなくなる場合がございます。あらかじめご了承ください。
+
+# スクレイピングについて 
+melon_top100はscrapy-seleniumを用いたスクレイピング用のソースコードファイルです。
+ソースコードはmelon_chart100.pyです。
+settings.pyのdriverパスを自分のものに変更してください。
+仮装環境は最新のpythonだとscrapyが使えるかはわかりません。
+
+# streamlitの起動方法
+requirements.txtはサーバー起動時に勝手にインストールしてくれるモジュールのバージョンを明記しています。
+前述の通り、streamlitには動的な動き、ページの更新にはあまり対応してないのでメソッド->リセット呼び戻しを繰り返してます。
+
+# 記述に関して
+ここは関数でまとめれるやろ！等色々とあるとは思いますが、ご指摘していただけると嬉しいです。
