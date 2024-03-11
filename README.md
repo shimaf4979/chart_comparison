@@ -13,5 +13,9 @@ settings.pyのdriverパスを自分のものに変更してください。
 requirements.txtはサーバー起動時に勝手にインストールしてくれるモジュールのバージョンを明記しています。
 前述の通り、streamlitには動的な動き、ページの更新にはあまり対応してないのでメソッド->リセット呼び戻しを繰り返してます。
 
+# main(streamlit_app.py)
+これがメインファイルになっています。month_chart.py,custom_styles_html.py,artist.pyをインポートしてます。
+ipaexg.ttfはmatplotlibの日本語表示に使います。相変わらず不便なグラフ作成ツールですね。
+
 # 記述に関して
 ここは関数でまとめれるやろ！等色々とあるとは思いますが、ご指摘していただけると嬉しいです。
