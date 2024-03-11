@@ -19,6 +19,9 @@ def home(df):
     html_content=custom_styles_html.custom_font_html()
     st.markdown(html_content,unsafe_allow_html=True)
     st.write("")
+    st.markdown(f'<div class="stylish-text"><span style="font-size:14px">左上の>ボタンでメニュー選択できます！</span></div>', unsafe_allow_html=True)
+    
+    st.write("")
     st.write("")
     selected_alpha='すべてで検索する'
     
