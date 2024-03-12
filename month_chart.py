@@ -215,25 +215,7 @@ def home_next(df):
     ]
 
 
-    for color_index, (lower, upper) in enumerate(bounds):
-        condition = (ranks >= lower) & (ranks <= upper)
-        filtered_indices = np.where(condition)[0]  # 条件に一致するインデックスを取得
-        if len(filtered_indices) > 0:  # データがある場合のみプロット
-            plt.plot(song_data_sorted['year_month'].iloc[filtered_indices], song_data_sorted['rank'].astype(int).iloc[filtered_indices], marker='o', linestyle='', markersize=marker_size, color=colors[color_index], label=f'{lower}-{upper}')
 
-
-    unique_months = song_data_sorted['year_month'].unique()
-    month_labels = [f'{month}' for month in unique_months]
-
-    plt.xticks(unique_months, labels=month_labels, fontsize=font_size,rotation=45)
-    plt.yticks([1,10,20,30,40,50,60,70,80,90,100],fontsize=15)
-    plt.ylim(-3,103)
-    plt.gca().invert_yaxis()  # 1位を上に表示
-    plt.xlabel('', fontproperties=font_prop)
-    plt.ylabel('', fontproperties=font_prop)
-    plt.title('月別順位推移', fontproperties=font_prop,fontsize=20)
-    plt.legend()
-    plt.grid(True, which='both', linestyle='--', linewidth=3, alpha=0.5)
 
 
     original_url = song_data['image'].iloc[0]
@@ -261,8 +243,29 @@ def home_next(df):
             st.write(f"- {rank}")
     col10.image(processed_url, caption=f'{selected_song}', width=300)
     #ここでグラフを表示
-    with st.spinner('グラフの作成中...'):
-        st.pyplot(plt) 
+    
+    with st.expander("グラフを見る"):
+        with st.spinner('グラフの作成中...'):
+            for color_index, (lower, upper) in enumerate(bounds):
+                condition = (ranks >= lower) & (ranks <= upper)
+                filtered_indices = np.where(condition)[0]  # 条件に一致するインデックスを取得
+                if len(filtered_indices) > 0:  # データがある場合のみプロット
+                    plt.plot(song_data_sorted['year_month'].iloc[filtered_indices], song_data_sorted['rank'].astype(int).iloc[filtered_indices], marker='o', linestyle='', markersize=marker_size, color=colors[color_index], label=f'{lower}-{upper}')
+
+
+            unique_months = song_data_sorted['year_month'].unique()
+            month_labels = [f'{month}' for month in unique_months]
+
+            plt.xticks(unique_months, labels=month_labels, fontsize=font_size,rotation=45)
+            plt.yticks([1,10,20,30,40,50,60,70,80,90,100],fontsize=15)
+            plt.ylim(-3,103)
+            plt.gca().invert_yaxis()  # 1位を上に表示
+            plt.xlabel('', fontproperties=font_prop)
+            plt.ylabel('', fontproperties=font_prop)
+            plt.title('月別順位推移', fontproperties=font_prop,fontsize=20)
+            plt.legend()
+            plt.grid(True, which='both', linestyle='--', linewidth=3, alpha=0.5)
+            st.pyplot(plt) 
 
         
     with st.expander("他の作品を見る"):
