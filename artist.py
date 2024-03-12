@@ -70,7 +70,7 @@ def artist_about(df):
     song_rank=df_merged[df_merged["artist"] == selected_artist]["rank_of_song"].min()
     original_url = df_merged[(df_merged["rank_of_song"] == song_rank) & (df_merged["artist"] == selected_artist)]["image"].iloc[0]
     processed_url = month_chart.extract_url_part(original_url, "melon/")    
-    st.image(processed_url, caption=f'{df_merged[(df_merged["rank_of_song"] == song_rank) & (df_merged["artist"] == selected_artist)]["song"].iloc[0]}',width=400)   
+    st.image(processed_url, caption=f'{df_merged[(df_merged["rank_of_song"] == song_rank) & (df_merged["artist"] == selected_artist)]["song"].iloc[0]}',width=300)   
     
     with st.expander("作品一覧"):
         # 選択されたアーティストの他の曲を抽出（選択された曲を除外）
@@ -174,7 +174,7 @@ def artist_home(df):
     song_rank=df_merged[df_merged["artist"] == selected_artist]["rank_of_song"].min()
     original_url = df_merged[(df_merged["rank_of_song"] == song_rank) & (df_merged["artist"] == selected_artist)]["image"].iloc[0]
     processed_url = month_chart.extract_url_part(original_url, "melon/")    
-    st.image(processed_url, caption=f'{df_merged[(df_merged["rank_of_song"] == song_rank) & (df_merged["artist"] == selected_artist)]["song"].iloc[0]}',width=400)   
+    st.image(processed_url, caption=f'{df_merged[(df_merged["rank_of_song"] == song_rank) & (df_merged["artist"] == selected_artist)]["song"].iloc[0]}',width=300)   
     
     with st.expander("作品一覧"):
         # 選択されたアーティストの他の曲を抽出（選択された曲を除外）
