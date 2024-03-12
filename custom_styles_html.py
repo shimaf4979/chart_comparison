@@ -35,6 +35,6 @@ def custom_font_html():
 
 
     <div class="custom-font">
-        Melonチャートで月間ランキングに載った曲を検索できます！
+        Melonチャートで月間ランキングに載った曲を検索できます！(from 2018 to 2024)
     </div>
     """

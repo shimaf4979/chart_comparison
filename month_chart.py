@@ -105,7 +105,7 @@ def home(df):
     plt.title('月別順位推移', fontproperties=font_prop,fontsize=20)
     plt.legend()
     plt.grid(True, which='both', linestyle='--', linewidth=3, alpha=0.5)
-    st.pyplot(plt)
+
 
     original_url = song_data['image'].iloc[0]
     processed_url = extract_url_part(original_url, "melon/")
@@ -130,7 +130,8 @@ def home(df):
         for rank in rank_list:
             st.write(f"- {rank}")
     # 2つ目のカラムに画像を配置
-    col10.image(processed_url, caption=f'{selected_song}', width=300)    
+    col10.image(processed_url, caption=f'{selected_song}', width=300)   
+    st.pyplot(plt) 
        
     with st.expander("他の作品を見る"):
         # 選択されたアーティストの他の曲を抽出（選択された曲を除外）
@@ -382,7 +383,7 @@ def artist_next(df):
     with col1.expander("順位推移を見る"):
         for rank in rank_list:
             st.write(f"- {rank}")
-    col10.image(processed_url, caption=f'{selected_song}', width=400)
+    col10.image(processed_url, caption=f'{selected_song}', width=300)
     #ここでグラフを表示
  
 
