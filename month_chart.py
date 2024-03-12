@@ -51,90 +51,87 @@ def home(df):
     artist_songs = df[df['artist'].apply(lambda x: selected_artist in x)]
     selected_song = st.selectbox('曲を選択してください', artist_songs['song'].unique())
     song_data = artist_songs[artist_songs['song'] == selected_song]   
-    song_data_sorted = song_data.sort_values(by=['year', 'month'])
-    with st.spinner('検索中...'):
-        plt.figure(figsize=(10, 6))
-        
-        #サイズ、フォントの指定
-        plot_points_count = len(song_data_sorted)
-        font_size = max(15 - (plot_points_count // 8), 6)  
-        marker_size = max(20 - (plot_points_count // 20), 2)  
-        font_path = 'ipaexg.ttf'
-        font_prop = FontProperties(fname=font_path)
+    song_data_sorted = song_data.sort_values(by=['year', 'month'])   
+    plt.figure(figsize=(10, 6))
+    
+    #サイズ、フォントの指定
+    plot_points_count = len(song_data_sorted)
+    font_size = max(15 - (plot_points_count // 8), 6)  
+    marker_size = max(20 - (plot_points_count // 20), 2)  
+    font_path = 'ipaexg.ttf'
+    font_prop = FontProperties(fname=font_path)
 
-        plt.figure(figsize=(10, 6))
-        plt.plot(song_data_sorted['year'].astype(str) + '/' + song_data_sorted['month'].astype(str), song_data_sorted['rank'], marker='', linestyle='-', linewidth=2, color='skyblue')
+    plt.figure(figsize=(10, 6))
+    plt.plot(song_data_sorted['year'].astype(str) + '/' + song_data_sorted['month'].astype(str), song_data_sorted['rank'], marker='', linestyle='-', linewidth=2, color='skyblue')
 
-        ranks = song_data_sorted['rank'].astype(int).values
+    ranks = song_data_sorted['rank'].astype(int).values
 
-        # 各順位範囲ごとに色を変えてプロット
+    # 各順位範囲ごとに色を変えてプロット
 
-        colors = [
-            'DarkRed',        # 1. ダークレッド
-            'Firebrick',      # 2. 暗いレンガ色の赤
-            'Crimson',        # 3. 濃い赤紫色
-            'DeepPink',       # 4. 深いピンク
-            'PaleVioletRed',  # 5. 薄いバイオレットレッド
-            'HotPink',        # 6. 鮮やかなピンク
-            'Pink',           # 7. 標準的なピンク
-            'LightPink',      # 8. 明るいピンク
-            'MistyRose',      # 9. やや薄いピンク
-            'LavenderBlush'   # 10. 非常に薄いピンク、ほぼ白に近い
-        ]
+    colors = [
+        'DarkRed',        # 1. ダークレッド
+        'Firebrick',      # 2. 暗いレンガ色の赤
+        'Crimson',        # 3. 濃い赤紫色
+        'DeepPink',       # 4. 深いピンク
+        'PaleVioletRed',  # 5. 薄いバイオレットレッド
+        'HotPink',        # 6. 鮮やかなピンク
+        'Pink',           # 7. 標準的なピンク
+        'LightPink',      # 8. 明るいピンク
+        'MistyRose',      # 9. やや薄いピンク
+        'LavenderBlush'   # 10. 非常に薄いピンク、ほぼ白に近い
+    ]
 
-        bounds = [
-            (1, 10), (11, 20), (21, 30), (31, 40), (41, 50),
-            (51, 60), (61, 70), (71, 80), (81, 90), (91, 100)
-        ]
-
-
-        for color_index, (lower, upper) in enumerate(bounds):
-            condition = (ranks >= lower) & (ranks <= upper)
-            filtered_indices = np.where(condition)[0]  # 条件に一致するインデックスを取得
-            if len(filtered_indices) > 0:  # データがある場合のみプロット
-                plt.plot(song_data_sorted['year_month'].iloc[filtered_indices], song_data_sorted['rank'].astype(int).iloc[filtered_indices], marker='o', linestyle='', markersize=marker_size, color=colors[color_index], label=f'{lower}-{upper}')
+    bounds = [
+        (1, 10), (11, 20), (21, 30), (31, 40), (41, 50),
+        (51, 60), (61, 70), (71, 80), (81, 90), (91, 100)
+    ]
 
 
-        unique_months = song_data_sorted['year_month'].unique()
-        month_labels = [f'{month}' for month in unique_months]
-
-        plt.xticks(unique_months, labels=month_labels, fontsize=font_size,rotation=45)
-        plt.yticks([1,10,20,30,40,50,60,70,80,90,100],fontsize=15)
-        plt.ylim(-3,103)
-        plt.gca().invert_yaxis()  # 1位を上に表示
-        plt.xlabel('', fontproperties=font_prop)
-        plt.ylabel('', fontproperties=font_prop)
-        plt.title('月別順位推移', fontproperties=font_prop,fontsize=20)
-        plt.legend()
-        plt.grid(True, which='both', linestyle='--', linewidth=3, alpha=0.5)
+    for color_index, (lower, upper) in enumerate(bounds):
+        condition = (ranks >= lower) & (ranks <= upper)
+        filtered_indices = np.where(condition)[0]  # 条件に一致するインデックスを取得
+        if len(filtered_indices) > 0:  # データがある場合のみプロット
+            plt.plot(song_data_sorted['year_month'].iloc[filtered_indices], song_data_sorted['rank'].astype(int).iloc[filtered_indices], marker='o', linestyle='', markersize=marker_size, color=colors[color_index], label=f'{lower}-{upper}')
 
 
-        original_url = song_data['image'].iloc[0]
-        processed_url = extract_url_part(original_url, "melon/")
-        col10, col1 = st.columns(2)
-        selected_song_info = song_data_sorted[song_data_sorted['song'] == selected_song].iloc[0]
-        song_name = selected_song_info['song']
-        artist_name = selected_song_info['artist']
-        album_name = selected_song_info['album']
-        # 順位推移の情報を整理
-        rank_transitions = song_data_sorted[song_data_sorted['song'] == selected_song]
-        rank_list = rank_transitions.apply(lambda x: f"{x['year']}/{x['month']} {x['rank']}位", axis=1).tolist()
+    unique_months = song_data_sorted['year_month'].unique()
+    month_labels = [f'{month}' for month in unique_months]
 
-        col1.markdown(f'<div class="stylish-text"> <span class="black">{song_name}<span> <span class="highlight">#{ranks.min()} (Highest)<span></div>', unsafe_allow_html=True)
-        col1.markdown(f'<div class="stylish-text">Artist: <span class="black">{artist_name}<span></div>', unsafe_allow_html=True)
-        col1.markdown(f'<div class="stylish-text">Album: <span class="black">{album_name}<span></div>', unsafe_allow_html=True)    
-        if col1.button("アーティストの詳細を確認"):
-            st.session_state['selected_artist'] = selected_artist
-            st.session_state.page_switched = "artist"
-            st.experimental_rerun()
+    plt.xticks(unique_months, labels=month_labels, fontsize=font_size,rotation=45)
+    plt.yticks([1,10,20,30,40,50,60,70,80,90,100],fontsize=15)
+    plt.ylim(-3,103)
+    plt.gca().invert_yaxis()  # 1位を上に表示
+    plt.xlabel('', fontproperties=font_prop)
+    plt.ylabel('', fontproperties=font_prop)
+    plt.title('月別順位推移', fontproperties=font_prop,fontsize=20)
+    plt.legend()
+    plt.grid(True, which='both', linestyle='--', linewidth=3, alpha=0.5)
 
-        with col1.expander("順位推移を見る"):
-            for rank in rank_list:
-                st.write(f"- {rank}")
-        # 2つ目のカラムに画像を配置
-        col10.image(processed_url, caption=f'{selected_song}', width=300)  
-        
-        
+
+    original_url = song_data['image'].iloc[0]
+    processed_url = extract_url_part(original_url, "melon/")
+    col10, col1 = st.columns(2)
+    selected_song_info = song_data_sorted[song_data_sorted['song'] == selected_song].iloc[0]
+    song_name = selected_song_info['song']
+    artist_name = selected_song_info['artist']
+    album_name = selected_song_info['album']
+    # 順位推移の情報を整理
+    rank_transitions = song_data_sorted[song_data_sorted['song'] == selected_song]
+    rank_list = rank_transitions.apply(lambda x: f"{x['year']}/{x['month']} {x['rank']}位", axis=1).tolist()
+
+    col1.markdown(f'<div class="stylish-text"> <span class="black">{song_name}<span> <span class="highlight">#{ranks.min()} (Highest)<span></div>', unsafe_allow_html=True)
+    col1.markdown(f'<div class="stylish-text">Artist: <span class="black">{artist_name}<span></div>', unsafe_allow_html=True)
+    col1.markdown(f'<div class="stylish-text">Album: <span class="black">{album_name}<span></div>', unsafe_allow_html=True)    
+    if col1.button("アーティストの詳細を確認"):
+        st.session_state['selected_artist'] = selected_artist
+        st.session_state.page_switched = "artist"
+        st.experimental_rerun()
+
+    with col1.expander("順位推移を見る"):
+        for rank in rank_list:
+            st.write(f"- {rank}")
+    # 2つ目のカラムに画像を配置
+    col10.image(processed_url, caption=f'{selected_song}', width=300)  
     with st.spinner('グラフの作成中...'):
         st.pyplot(plt) 
        
