@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from matplotlib.font_manager import FontProperties
 import custom_styles_html
 import json
+import time
 
 def extract_url_part(url, substring):
     index = url.find(substring)
@@ -130,8 +131,9 @@ def home(df):
         for rank in rank_list:
             st.write(f"- {rank}")
     # 2つ目のカラムに画像を配置
-    col10.image(processed_url, caption=f'{selected_song}', width=300)   
-    st.pyplot(plt) 
+    col10.image(processed_url, caption=f'{selected_song}', width=300)  
+    with st.spinner('読み込み中...'):
+        st.pyplot(plt) 
        
     with st.expander("他の作品を見る"):
         # 選択されたアーティストの他の曲を抽出（選択された曲を除外）
@@ -259,7 +261,8 @@ def home_next(df):
             st.write(f"- {rank}")
     col10.image(processed_url, caption=f'{selected_song}', width=300)
     #ここでグラフを表示
-    st.pyplot(plt)
+    with st.spinner('読み込み中...'):
+        st.pyplot(plt) 
 
         
     with st.expander("他の作品を見る"):

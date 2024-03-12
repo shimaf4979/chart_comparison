@@ -304,11 +304,11 @@ def ranking(df):
         top_artists_by_year = filtered_df.groupby('artist').agg({'rank_count_artist':'sum'}).reset_index().nlargest(50, 'rank_count_artist')
 
         # 結果の表示
-        
-        st.subheader(f"{selected_year}年のトップ50アーティスト")
-        display_stylish_text(top_artists_by_year, rank_type='artist')
         st.subheader(f"{selected_year}年のトップ50曲")
         display_stylish_text(top_songs_by_year)
         
+        st.subheader(f"{selected_year}年のトップ50アーティスト")
+        display_stylish_text(top_artists_by_year, rank_type='artist')
+
 
     
