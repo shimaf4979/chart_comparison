@@ -132,7 +132,7 @@ def home(df):
             st.write(f"- {rank}")
     # 2つ目のカラムに画像を配置
     col10.image(processed_url, caption=f'{selected_song}', width=300)  
-    with st.spinner('読み込み中...'):
+    with st.spinner('グラフの作成中...'):
         st.pyplot(plt) 
        
     with st.expander("他の作品を見る"):
@@ -261,7 +261,7 @@ def home_next(df):
             st.write(f"- {rank}")
     col10.image(processed_url, caption=f'{selected_song}', width=300)
     #ここでグラフを表示
-    with st.spinner('読み込み中...'):
+    with st.spinner('グラフの作成中...'):
         st.pyplot(plt) 
 
         
