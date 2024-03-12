@@ -14,7 +14,7 @@ def extract_url_part(url, substring):
     else:
         # substringが見つからない場合、元のURLをそのまま返すか、エラーを返す
         return
-    
+
 def home(df):
     html_content=custom_styles_html.custom_font_html()
     st.markdown(html_content,unsafe_allow_html=True)

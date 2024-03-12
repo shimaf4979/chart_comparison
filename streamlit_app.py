@@ -13,14 +13,33 @@ with open(file_path, 'r', encoding='utf-8') as file:
     data = json.load(file)
 
 #とりあえず全部数字型に変えとく     
-df = pd.DataFrame(data)
-df['year'] = pd.to_numeric(df['year'])
-df['month'] = pd.to_numeric(df['month'])
-df['rank'] = pd.to_numeric(df['rank'])
-df['year_month'] = df['year'].astype(str) + '/' + df['month'].astype(str)
-df['artist'] = df['artist'].apply(lambda x: ''.join(x) if isinstance(x, list) else x)
-df['artist'] = df['artist'].str.replace('방탄소년단', 'BTS(방탄소년단)')
-df["artist"] = df["artist"].str.replace("세븐틴","SEVENTEEN(세븐틴)")
+# df = pd.DataFrame(data)
+# df['year'] = pd.to_numeric(df['year'])
+# df['month'] = pd.to_numeric(df['month'])
+# df['rank'] = pd.to_numeric(df['rank'])
+# df['year_month'] = df['year'].astype(str) + '/' + df['month'].astype(str)
+# df['artist'] = df['artist'].apply(lambda x: ''.join(x) if isinstance(x, list) else x)
+# df['artist'] = df['artist'].str.replace('방탄소년단', 'BTS(방탄소년단)')
+# df["artist"] = df["artist"].str.replace("세븐틴","SEVENTEEN(세븐틴)")
+
+
+@st.cache_data
+def load_data(file_path):
+    with open(file_path, 'r', encoding='utf-8') as file:
+        data = json.load(file)
+    df = pd.DataFrame(data)
+    df['month'] = pd.to_numeric(df['month'])
+    df['rank'] = pd.to_numeric(df['rank'])
+    df['year_month'] = df['year'].astype(str) + '/' + df['month'].astype(str)
+    df['artist'] = df['artist'].apply(lambda x: ''.join(x) if isinstance(x, list) else x)
+    df['artist'] = df['artist'].str.replace('방탄소년단', 'BTS(방탄소년단)')
+    df["artist"] = df["artist"].str.replace("세븐틴","SEVENTEEN(세븐틴)")
+    return df
+
+file_path = 'melon_2024_3_top100.json'
+df = load_data(file_path)
+
+
 menu_selection = st.sidebar.selectbox(
     "メニュー",
     [ "MelonチャートTOP100 月間推移","アーティスト詳細", "年別ランキング","ソースコードと利用規約"]
